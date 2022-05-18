@@ -13,9 +13,12 @@ public class App {
         String pathToTop250Movies = "API/Top250Movies/" + getApiKey();
         String urlString = BASE_URL_STRING + pathToTop250Movies;
 
-        HttpRequest httpRequest = new HttpRequest(urlString, HttpRequest.GET);
-        HttpResponse response = httpRequest.execute();
-        System.out.println(response.getBody());
+        HttpRequest request = new HttpRequest(urlString, HttpRequest.GET);
+        HttpResponse response = request.execute();
+
+        System.out.println((response.getStatusCode() <= 299) ?
+                response.getBody() :
+                response.getError());
     }
 
     private static String getApiKey() throws IOException {
